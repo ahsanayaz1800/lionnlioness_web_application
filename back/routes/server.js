@@ -28,7 +28,7 @@ http.listen(PORT, () => {
 //Cors Option
 const corsOption = {
   credentials:true,
-  origin:['https://lionnlioness-v3.devservertd.com','http://localhost:3000'],
+  origin:["https://lionnlioness-v4.devservertd.com",'http://localhost:3000'],
 
 } 
 
@@ -68,7 +68,7 @@ app.get("/",(req,res)=>{
 /* Socket.io */
 let io = new Server(http, {
   cors: {
-    origin: [ "https://lionnlioness-v3.devservertd.com","http://localhost:3000"],
+    origin: ["https://lionnlioness-v4.devservertd.com",'http://localhost:3000'],
     methods: ["GET", "POST"],
     credentials: true,
   },

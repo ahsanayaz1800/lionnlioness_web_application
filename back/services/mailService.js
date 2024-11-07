@@ -2,10 +2,7 @@ let nodemailer = require("nodemailer");
 
 module.exports = {
   registerMail: (mail, username, link, plainPassword = null) => {
-    // Ensure the link uses HTTP instead of HTTPS for localhost
-    if (link.includes('localhost')) {
-      link = link.replace('https://', 'http://');
-    }
+   
   
     // Create the base message
     var message = `
@@ -40,14 +37,14 @@ module.exports = {
       service: 'gmail',
       auth: {
         user: 'ahsanayaz17193@gmail.com',  // Your Gmail account
-        pass: 'lgtq ttle qiar xlyq'      // Your app-specific password (not regular Gmail password)
+        pass: 'ruhf eosm vexj hezc'      // Your app-specific password (not regular Gmail password)
       }
     });
 
 
     transporter.sendMail(
       {
-        from: "registration@ahsanayaz17193",
+        from: "noreply@lion_n_lioness",
         to: mail,
         subject: "Welcome to Lion_n_Lioness",
         html: message,
@@ -64,10 +61,7 @@ module.exports = {
   },
 
   forgotPasswordMail: (mail, username, link) => {
-        // Ensure the link uses HTTP instead of HTTPS for localhost
-        if (link.includes('localhost')) {
-          link = link.replace('https://', 'http://');
-        }
+       
     var message =
       `
     <html>
@@ -94,13 +88,13 @@ module.exports = {
       service: 'gmail',
       auth: {
         user: 'ahsanayaz17193@gmail.com',  // Your Gmail account
-        pass: 'lgtq ttle qiar xlyq'       // Your app-specific password
+        pass: 'ruhf eosm vexj hezc'       // Your app-specific password
       }
     });
   
     transporter.sendMail(
       {
-        from: "noreply@ahsanayaz17193",
+        from: "noreply@lion_n_lioness",
         to: mail,
         subject: "Lion_n_Lioness - Reset password",
         html: message,

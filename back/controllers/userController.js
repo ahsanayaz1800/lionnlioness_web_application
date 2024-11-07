@@ -615,6 +615,7 @@ getUserPreferences : async (req , res , next) => {
 
   checkValidity: async (req, res, next) => {
     //console.log(req.params.key);
+console.log(req)
     var result = await userModel.findOne("key", req.params.key);
     if (result != "") {
       var updated = await userModel.updateRegister(req.params.key);
@@ -731,6 +732,8 @@ getUserPreferences : async (req , res , next) => {
           newUser.city,
           newUser.latitude,
           newUser.longitude,
+          null,
+          null
         ],
         true  // Indicating this is a Google user
 

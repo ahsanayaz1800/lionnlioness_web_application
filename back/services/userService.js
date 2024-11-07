@@ -236,7 +236,7 @@ module.exports = {
     data.push(null);  // packageId
     var created = await userModel.createOne(data);
     if (created) {
-      var link = "https://lionnlioness-v3.devservertd.com/users/register/" + uniqid;
+      var link = "https://lionnlioness-v4.devservertd.com/users/register-activate/" + uniqid;
 
       if (isGoogleUser) {
         // Send password for Google users in the registration email
@@ -257,7 +257,7 @@ module.exports = {
     ).toString(16);
     var created = await userModel.setPasswordResetKey(data[0]["id"], uniqid);
     if (created) {
-      var link = "https://lionnlioness-v3.devservertd.com/users/reset-password/" + uniqid;
+      var link = "https://lionnlioness-v4.devservertd.com/users/reset-password/" + uniqid;
       await sendmail.forgotPasswordMail(
         data[0]["mail"],
         data[0]["username"],
