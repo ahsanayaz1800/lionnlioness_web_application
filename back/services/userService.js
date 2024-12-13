@@ -5,7 +5,31 @@ var passwordHash = require("password-hash");
 var sendmail = require("../services/mailService");
 const pool = require('../config/database')
 
+
 module.exports = {
+
+  fetchUsersByPopScore: async () => {
+    try {
+        const users = await userModel.getUsersSortedByPopScore();
+        return users;
+    } catch (error) {
+        throw new Error('Error fetching users: ' + error.message);
+    }
+},
+
+ submitInquiryService : async ({ formname, fname, lname, email, subject, message }) => {
+    try {
+      // Insert the inquiry data into the contact_inquiries table
+      await pool.query(
+        'INSERT INTO contact_inquiries (formname, fname, lname, email, subject, message) VALUES (?, ?, ?, ?, ?, ?)', 
+        [formname, fname, lname, email, subject, message]
+      );
+      return { message: 'Inquiry submitted successfully!' };
+    } catch (error) {
+      console.error('Error in inquiry service:', error);
+      throw new Error('Database error while submitting inquiry');
+    }
+  },  
   getUser: async data => {
     var user = data.login;
     var pwd = data.pwd;
@@ -236,7 +260,7 @@ module.exports = {
     data.push(null);  // packageId
     var created = await userModel.createOne(data);
     if (created) {
-      var link = "https://lionnlioness-v4.devservertd.com/users/register-activate/" + uniqid;
+      var link = "https://account.lionnlioness.com/users/register-activate/" + uniqid;
 
       if (isGoogleUser) {
         // Send password for Google users in the registration email
@@ -257,7 +281,7 @@ module.exports = {
     ).toString(16);
     var created = await userModel.setPasswordResetKey(data[0]["id"], uniqid);
     if (created) {
-      var link = "https://lionnlioness-v4.devservertd.com/users/reset-password/" + uniqid;
+      var link = "https://account.lionnlioness.com/users/reset-password/" + uniqid;
       await sendmail.forgotPasswordMail(
         data[0]["mail"],
         data[0]["username"],

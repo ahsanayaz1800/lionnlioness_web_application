@@ -23,6 +23,24 @@ const fs = require("fs");
 const postModel = require("../models/postModel");
 
 module.exports = {
+   getUsersByPopScore: async (req, res) => {
+    try {
+        const users = await UserService.fetchUsersByPopScore();
+        res.status(200).json({
+            success: true,
+            message: 'Users fetched successfully',
+            data: users
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching users',
+            error: error.message
+        });
+    }
+},
+
+
   login: async (req, res, next) => {
     var user = await UserService.getUser({
       login: req.body.login,
@@ -44,6 +62,25 @@ module.exports = {
     }
   },
 
+  submitInquiry : async (req, res) => {
+    console.log(req.body)
+
+    const { formname, fname, lname, email, subject, message } = req.body;
+  
+    // Validate request data
+    if (!formname || !fname || !lname || !email || !subject || !message) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+ 
+  try {
+    
+      const result = await UserService.submitInquiryService({ formname, fname, lname, email, subject, message });
+      res.status(200).json(result);
+    } catch (error) {
+      console.error('Error in inquiry controller:', error.message);
+      res.status(500).json({ error: 'Server error. Please try again later.' });
+    }
+  },
   updateUserField: async (req, res, next) => {
     var err = "";
     switch (req.params.field) {

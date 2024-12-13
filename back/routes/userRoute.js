@@ -3,7 +3,8 @@ var userController = require("../controllers/userController");
 
 exports.router = (() => {
   var userRouter = express.Router();
-
+    userRouter.route('/user_feedback').post(userController.submitInquiry)
+   userRouter.route('/pop_score').get(userController.getUsersByPopScore);
   userRouter
     .route("/verify/:id/password")
     .post(userController.verifyPasswordWithId);

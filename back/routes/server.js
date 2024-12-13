@@ -28,11 +28,12 @@ http.listen(PORT, () => {
 //Cors Option
 const corsOption = {
   credentials:true,
-  origin:["https://lionnlioness-v4.devservertd.com",'http://localhost:3000'],
+  origin:["https://account.lionnlioness.com", "https://lionnlioness-v4.devservertd.com","https://lionnlioness.com",'http://localhost:3000'],
 
 } 
 
 app.use(cors(corsOption));
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
 
 /* Middlewares */
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
@@ -68,7 +69,7 @@ app.get("/",(req,res)=>{
 /* Socket.io */
 let io = new Server(http, {
   cors: {
-    origin: ["https://lionnlioness-v4.devservertd.com",'http://localhost:3000'],
+    origin: ["https://account.lionnlioness.com", "https://lionnlioness-v4.devservertd.com","https://lionnlioness.com",'http://localhost:3000'],
     methods: ["GET", "POST"],
     credentials: true,
   },

@@ -2,6 +2,22 @@ var pool = require("../config/database");
 var passwordHash = require("password-hash");
 
 module.exports = {
+
+getUsersSortedByPopScore: () => {
+        const query = 'SELECT * FROM users ORDER BY pop_score DESC LIMIT 5';
+        return new Promise((resolve, reject) => {
+            pool.query(query, (error, results) => {
+                if (error) {
+                    console.error('Database fetch error:', error);
+                    return reject(error);
+                }
+                resolve(results);
+            });
+        });
+},
+
+
+
   findOne: async (field, data) => {
     try {
       var result = await pool.query({
